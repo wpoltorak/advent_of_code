@@ -3,45 +3,13 @@
  */
 package com.adventofcode;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.function.ToIntFunction;
-import java.util.stream.IntStream;
+import com.adventofcode.calendar.impl.Day1;
+import com.adventofcode.calendar.impl.Day2;
 
 public class App {
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
-        App app = new App();
-        app.day1();
-    }
-
-    public String read(String name) throws URISyntaxException, IOException {
-        Path path = Paths.get(getClass().getResource(name).toURI());
-        return Files.readString(path);
-    }
-
-    public void day1() throws IOException, URISyntaxException {
-        String out = read("/day1.txt");
-        String[] caloryEntries = out.split(System.lineSeparator() + System.lineSeparator());
-        ToIntFunction<? super String> summedCaloriesFunction = s -> Arrays.stream(s.split(System.lineSeparator()))
-                .mapToInt(Integer::parseInt).sum();
-
-        int max = Arrays.stream(caloryEntries)
-                .mapToInt(summedCaloriesFunction).max()
-                .getAsInt();
-
-        System.out.println("Most carried calories " + max);
-
-        max = Arrays.stream(caloryEntries)
-                .mapToInt(summedCaloriesFunction).boxed()
-                .sorted(Comparator.reverseOrder()).limit(3).mapToInt(Integer::intValue)
-                .sum();
-
-        System.out.println("Sum of top 3 most carried calories " + max);
+    public static void main(String[] args) {
+        new Day1().run();
+        new Day2().run();
     }
 }

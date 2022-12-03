@@ -1,5 +1,8 @@
 ### Java ###
 
+# fodler with classes
+bin/
+
 # Compiled class file
 *.class
 
