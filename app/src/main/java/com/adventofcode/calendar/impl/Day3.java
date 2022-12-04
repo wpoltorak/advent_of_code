@@ -1,8 +1,7 @@
 package com.adventofcode.calendar.impl;
 
-import java.util.HashMap;
 import java.util.Map;
-
+import java.util.stream.Collectors;
 import com.adventofcode.calendar.Day;
 
 public class Day3 implements Day {
@@ -28,13 +27,11 @@ public class Day3 implements Day {
 
         for (String rucksack : input.split(System.lineSeparator())) {
             int middle = rucksack.length() / 2;
-
             String compartment1 = rucksack.substring(0, middle);
             String compartment2 = rucksack.substring(middle);
 
-            sumOfPriorities += priorityOfItemFromBothCompartments(compartment1, compartment2);
+            sumOfPriorities += priorityOfItemFromAll(compartment1, compartment2);
         }
-
         System.out.println("Sum of priorities: " + sumOfPriorities);
     }
 
@@ -44,38 +41,23 @@ public class Day3 implements Day {
         if (rucksacks.length % 3 > 0) {
             return;
         }
-     
+
         for (int i = 0; i < rucksacks.length - 2; i += 3) {
-            String g1 = rucksacks[i];
-            String g2 = rucksacks[i + 1];
-            String g3 = rucksacks[i + 2];
-            for (char c : g1.toCharArray()) {
-                if (g2.indexOf(c) >= 0 && g3.indexOf(c) >= 0) {
-                    int val = calculatePriorityNumber(c);
-                    b += val;
-                    break;
-                }
-            }
+            b += priorityOfItemFromAll(rucksacks[i], rucksacks[i + 1], rucksacks[i + 2]);
         }
         System.out.println("Sum of group priorities: " + b);
     }
 
-    private int priorityOfItemFromBothCompartments(String compartment1, String compartment2) {
-        Map<Character, Integer> map = buildPriorities(compartment1);
-        for (char c : compartment2.toCharArray()) {
-            if (map.containsKey(c)) {
-                return map.get(c);
-            }
+    private int priorityOfItemFromAll(String first, String... rest) {
+        Map<Character, Integer> map = buildPriorities(first);
+        for (String pot : rest) {
+            map.keySet().retainAll(pot.chars().mapToObj(e -> (char) e).collect(Collectors.toSet()));
         }
-        return 0;
+        return map.values().stream().mapToInt(Integer::intValue).sum();
     }
 
     private Map<Character, Integer> buildPriorities(String items) {
-        Map<Character, Integer> map = new HashMap<>();
-
-        for (char item : items.toCharArray()) {
-            map.put(item, calculatePriorityNumber(item));
-        }
-        return map;
+        return items.chars().mapToObj(i -> (char) i)
+                .collect(Collectors.toMap(c -> c, c -> calculatePriorityNumber(c), (c1, c2) -> c1));
     }
 }

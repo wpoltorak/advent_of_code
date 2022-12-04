@@ -5,11 +5,15 @@ package com.adventofcode;
 
 import com.adventofcode.calendar.impl.Day1;
 import com.adventofcode.calendar.impl.Day2;
+import com.adventofcode.calendar.impl.Day3;
+import com.adventofcode.calendar.impl.Day4;
 
 public class App {
 
     public static void main(String[] args) {
         new Day1().run();
         new Day2().run();
+        new Day3().run();
+        new Day4().run();
     }
 }
