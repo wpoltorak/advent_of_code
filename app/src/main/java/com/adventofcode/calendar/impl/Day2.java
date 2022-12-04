@@ -1,10 +1,10 @@
 package com.adventofcode.calendar.impl;
 
 import java.util.Map;
-import com.adventofcode.calendar.Day;
+import com.adventofcode.calendar.Puzzle;
 import static java.util.Map.entry;
 
-public class Day2 implements Day {
+public class Day2 implements Puzzle {
 
         private static final Map<String, Integer> SCOREBOARD = Map.ofEntries(
                         entry("A X", 3 + 1),
@@ -29,18 +29,20 @@ public class Day2 implements Day {
                         entry("C Z", "C X"));
 
         @Override
-        public void run() {
-
-                String out = readInput("/day2.txt");
-                int score1 = 0;
-                int score2 = 0;
-
-                for (String game : out.split(System.lineSeparator())) {
-                        score1 += SCOREBOARD.get(game);
-                        score2 += SCOREBOARD.get(STRATEGIES.get(game));
+        public String partOne(String input) {
+                int score = 0;
+                for (String game : input.split(System.lineSeparator())) {
+                        score += SCOREBOARD.get(game);
                 }
+                return("Score 1: " + score);
+        }
 
-                System.out.println("Score 1: " + score1);
-                System.out.println("Score 2: " + score2);
+        @Override
+        public String partTwo(String input) {
+                int score = 0;
+                for (String game : input.split(System.lineSeparator())) {
+                        score += SCOREBOARD.get(STRATEGIES.get(game));
+                }
+                return "Score 2: " + score;
         }
 }

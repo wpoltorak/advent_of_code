@@ -1,23 +1,39 @@
 package com.adventofcode.calendar.impl;
 
-import com.adventofcode.calendar.Day;
+import com.adventofcode.calendar.Puzzle;
 
-public class Day4 implements Day {
+public class Day4 implements Puzzle {
+
 
     @Override
-    public void run() {
-        String out = readInput("/day4.txt");
+    public String partOne(String input) {
         int num = 0;
-        for (String s : out.split(System.lineSeparator())) {
+        for (String s : input.split(System.lineSeparator())) {
             String[] l = s.split(",");
             Range r1 = Range.fromString(l[0]);
             Range r2 = Range.fromString(l[1]);
-            num += overlaps(r1, r2);
+            num += countIfContains(r1, r2);
         }
-        System.out.println("No of overlapped pairs: " + num);
+        return "No of contained pairs: " + num;
     }
 
-    private int overlaps(Range r1, Range r2){
+    @Override
+    public String partTwo(String input) {
+        int num = 0;
+        for (String s : input.split(System.lineSeparator())) {
+            String[] l = s.split(",");
+            Range r1 = Range.fromString(l[0]);
+            Range r2 = Range.fromString(l[1]);
+            num += countIfOverlaps(r1, r2);
+        }
+        return "No of overlapped pairs: " + num;
+    }
+
+    private int countIfContains(Range r1, Range r2){
+        return r1.contains(r2) || r2.contains(r1) ? 1 : 0;
+    } 
+
+    private int countIfOverlaps(Range r1, Range r2){
         return r1.overlaps(r2) || r2.overlaps(r1) ? 1 : 0;
     }
 

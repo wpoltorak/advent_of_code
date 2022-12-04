@@ -4,10 +4,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public interface Day {
+public interface Puzzle {
 
-    void run();
+    default void run(){
+        String name = getClass().getSimpleName();
+        System.out.println("=== " + name +" ===");
+        String out = readInput("/" + name.toLowerCase() + ".txt");
+        System.out.println(partOne(out));
+        System.out.println(partTwo(out));
+    }
 
+    String partOne(String input);
+
+    String partTwo(String input);
 
     default String readInput(String name) {
         try {
@@ -19,5 +28,4 @@ public interface Day {
         }
         return null;
     }
-
 }

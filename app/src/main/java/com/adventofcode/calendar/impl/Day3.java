@@ -2,9 +2,9 @@ package com.adventofcode.calendar.impl;
 
 import java.util.Map;
 import java.util.stream.Collectors;
-import com.adventofcode.calendar.Day;
+import com.adventofcode.calendar.Puzzle;
 
-public class Day3 implements Day {
+public class Day3 implements Puzzle {
 
     private static final int ASCII_UPPERACE_OFFSET = 38;
     private static final int ASCII_LOWERACE_OFFSET = 96;
@@ -15,14 +15,7 @@ public class Day3 implements Day {
     }
 
     @Override
-    public void run() {
-        String out = readInput("/day3.txt");
-
-        puzzle1(out);
-        puzzle2(out);
-    }
-
-    private void puzzle1(String input) {
+    public String partOne(String input) {
         int sumOfPriorities = 0;
 
         for (String rucksack : input.split(System.lineSeparator())) {
@@ -32,20 +25,21 @@ public class Day3 implements Day {
 
             sumOfPriorities += priorityOfItemFromAll(compartment1, compartment2);
         }
-        System.out.println("Sum of priorities: " + sumOfPriorities);
+        return "Sum of priorities: " + sumOfPriorities;
     }
 
-    private void puzzle2(String out) {
-        int b = 0;
-        String[] rucksacks = out.split(System.lineSeparator());
+    @Override
+    public String partTwo(String input) {
+        int sumOfPriorities = 0;
+        String[] rucksacks = input.split(System.lineSeparator());
         if (rucksacks.length % 3 > 0) {
-            return;
+            return "";
         }
 
         for (int i = 0; i < rucksacks.length - 2; i += 3) {
-            b += priorityOfItemFromAll(rucksacks[i], rucksacks[i + 1], rucksacks[i + 2]);
+            sumOfPriorities += priorityOfItemFromAll(rucksacks[i], rucksacks[i + 1], rucksacks[i + 2]);
         }
-        System.out.println("Sum of group priorities: " + b);
+        return "Sum of group priorities: " + sumOfPriorities;
     }
 
     private int priorityOfItemFromAll(String first, String... rest) {
