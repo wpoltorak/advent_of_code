@@ -12,6 +12,7 @@ public interface Puzzle {
         String out = readInput("/" + name.toLowerCase() + ".txt");
         System.out.println(partOne(out));
         System.out.println(partTwo(out));
+        System.out.println();
     }
 
     String partOne(String input);

@@ -7,6 +7,7 @@ import com.adventofcode.calendar.impl.Day1;
 import com.adventofcode.calendar.impl.Day2;
 import com.adventofcode.calendar.impl.Day3;
 import com.adventofcode.calendar.impl.Day4;
+import com.adventofcode.calendar.impl.Day5;
 
 public class App {
 
@@ -15,5 +16,6 @@ public class App {
         new Day2().run();
         new Day3().run();
         new Day4().run();
+        new Day5().run();
     }
 }
