@@ -3,13 +3,14 @@ package com.adventofcode.calendar.impl;
 import com.adventofcode.calendar.Puzzle;
 
 public class Day4 implements Puzzle {
-
+    private static final String COMMA_SEPARATOR = ",";
+    private static final String DASH_SEPARATOR = "-";
 
     @Override
     public String partOne(String input) {
         int num = 0;
         for (String s : input.split(System.lineSeparator())) {
-            String[] l = s.split(",");
+            String[] l = s.split(COMMA_SEPARATOR);
             Range r1 = Range.fromString(l[0]);
             Range r2 = Range.fromString(l[1]);
             num += countIfContains(r1, r2);
@@ -21,7 +22,7 @@ public class Day4 implements Puzzle {
     public String partTwo(String input) {
         int num = 0;
         for (String s : input.split(System.lineSeparator())) {
-            String[] l = s.split(",");
+            String[] l = s.split(COMMA_SEPARATOR);
             Range r1 = Range.fromString(l[0]);
             Range r2 = Range.fromString(l[1]);
             num += countIfOverlaps(r1, r2);
@@ -59,7 +60,7 @@ public class Day4 implements Puzzle {
         }
 
         public static final Range fromString(String s) {
-            String[] split = s.split("-");
+            String[] split = s.split(DASH_SEPARATOR);
             return new Range(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
         }
     }

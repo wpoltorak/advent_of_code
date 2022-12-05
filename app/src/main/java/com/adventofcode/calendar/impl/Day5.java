@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import com.adventofcode.calendar.Puzzle;
 
@@ -25,7 +23,7 @@ public class Day5 implements Puzzle {
         String[] instructions = s[1].split(System.lineSeparator());
 
         Map<Integer, List<Integer>> stacks = createStacks(configuration);
-        new CraneMoove9000().processMovement(stacks, instructions);
+        new CrateMover9000().processMovement(stacks, instructions);
         return printCrates(stacks);
     }
 
@@ -37,14 +35,14 @@ public class Day5 implements Puzzle {
         String[] instructions = s[1].split(System.lineSeparator());
 
         Map<Integer, List<Integer>> stacks = createStacks(configuration);
-        new CraneMoove9001().processMovement(stacks, instructions);
+        new CrateMover9001().processMovement(stacks, instructions);
         return printCrates(stacks);
     }
 
     private String printCrates(Map<Integer, List<Integer>> stacks) {
         String str = "";
         for (int i = 1; i <= stacks.size(); i++) {
-            str += "" + ((char)stacks.get(i).get(stacks.get(i).size() - 1).intValue());
+            str += ((char)stacks.get(i).get(stacks.get(i).size() - 1).intValue());
         }
         //  IntStream mapToInt = stacks.values().stream().mapToInt(s -> s.stream().mapToInt(Integer::valueOf).reduce((first, second) -> second)
         return "Top crates: " + str;
@@ -113,7 +111,7 @@ public class Day5 implements Puzzle {
         void move(List<Integer> srcCrates, List<Integer> destCrates, int numberOfCrates);
     }
 
-    private class CraneMoove9000 implements Crane {
+    private class CrateMover9000 implements Crane {
 
         @Override
         public void move(List<Integer> srcCrates, List<Integer> destCrates, int numberOfCrates) {
@@ -123,7 +121,7 @@ public class Day5 implements Puzzle {
         }
     }
 
-    private class CraneMoove9001 implements Crane {
+    private class CrateMover9001 implements Crane {
 
         @Override
         public void move(List<Integer> srcCrates, List<Integer> destCrates, int numberOfCrates) {

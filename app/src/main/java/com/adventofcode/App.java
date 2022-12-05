@@ -3,19 +3,38 @@
  */
 package com.adventofcode;
 
-import com.adventofcode.calendar.impl.Day1;
-import com.adventofcode.calendar.impl.Day2;
-import com.adventofcode.calendar.impl.Day3;
-import com.adventofcode.calendar.impl.Day4;
-import com.adventofcode.calendar.impl.Day5;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+
+import com.adventofcode.calendar.Puzzle;
 
 public class App {
 
     public static void main(String[] args) {
-        new Day1().run();
-        new Day2().run();
-        new Day3().run();
-        new Day4().run();
-        new Day5().run();
+        try {
+
+            Collection<Class<? extends Puzzle>> puzzles = new App().getPuzzles();
+            for (Class<? extends Puzzle> clazz : puzzles) {
+                Puzzle puzzle = clazz.getDeclaredConstructor().newInstance();
+                puzzle.run();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public Collection<Class<? extends Puzzle>> getPuzzles() {
+        Reflections reflections = new Reflections(Puzzle.class.getPackageName(), new SubTypesScanner(false));
+        return reflections.getSubTypesOf(Puzzle.class)
+                .stream()
+                .collect(Collectors.toCollection(
+                    () -> new TreeSet<>(Comparator.comparing(Class::getName))
+                ));
     }
 }
