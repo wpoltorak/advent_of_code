@@ -1,6 +1,5 @@
 package com.adventofcode.calendar.impl;
 
-import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -19,14 +18,12 @@ public class Day6 implements Puzzle {
     }
 
     private int findSequenceIndex(int length, char[] ch) {
-        int num = 0;
         for (int i = 0; i < ch.length - length - 1; i++) {
             if (length == countUniqueCharacters(new String(ch, i, length))) {
-                num = i + length;
-                break;
+                return i + length;
             }
         }
-        return num;
+        return -1;
     }
 
     private long countUniqueCharacters(String text) {
