@@ -2,12 +2,14 @@ package com.adventofcode.calendar.impl;
 
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import com.adventofcode.calendar.Puzzle;
 
 public class Day3 implements Puzzle {
 
     private static final int ASCII_UPPERACE_OFFSET = 38;
     private static final int ASCII_LOWERACE_OFFSET = 96;
+    private static final int GROUP_SIZE = 3;
 
     private final int calculatePriorityNumber(int character) {
         return character <= ASCII_LOWERACE_OFFSET ? character - ASCII_UPPERACE_OFFSET
@@ -32,11 +34,11 @@ public class Day3 implements Puzzle {
     public String partTwo(String input) {
         int sumOfPriorities = 0;
         String[] rucksacks = input.split(System.lineSeparator());
-        if (rucksacks.length % 3 > 0) {
+        if (rucksacks.length % GROUP_SIZE > 0) {
             return "";
         }
 
-        for (int i = 0; i < rucksacks.length - 2; i += 3) {
+        for (int i = 0; i < rucksacks.length - GROUP_SIZE - 1; i += GROUP_SIZE) {
             sumOfPriorities += priorityOfItemFromAll(rucksacks[i], rucksacks[i + 1], rucksacks[i + 2]);
         }
         return "Sum of group priorities: " + sumOfPriorities;
