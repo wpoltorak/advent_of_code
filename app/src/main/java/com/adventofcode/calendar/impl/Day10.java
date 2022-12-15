@@ -25,7 +25,7 @@ public class Day10 implements Puzzle {
                     break;
             }
         }
-        return "Day 10: " + sum;
+        return "Sum of signals: " + sum;
     }
 
     private int checkSignalStrength(int cycle, int x) {
@@ -50,7 +50,7 @@ public class Day10 implements Puzzle {
                     break;
             }
         }
-        return "Day 10: " + screen.toString();
+        return "Message on screen: " + screen.toString();
     }
 
     private void drawPixel(StringBuilder screen, int cycle, int x) {
